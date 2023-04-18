@@ -72,34 +72,29 @@ while True:
 
     if pasirinkimas == "2":  # antras pasirinkimas
         os.system("cls")
-
-        print("-------[ Produkto išimimas iš šaldytuvo ]-------")
         perziureti_saldytuva()
-
-        tipas = input("Įveskite išimamo produkto tipą: ")
         while True:
-            isimamas_produktas = input("Įveskite kokį produktą norite išimti: ")
-            if not isimamas_produktas in produktai[tipas]:
-                print("Tokio produkto nėra")
+       
+
+
+            print("-------[ Produkto išimimas iš šaldytuvo ]-------")
+            isimamas_produktas = input("Irasykite isimama produkta arba 0 grysti i MENIU: ")
+            if isimamas_produktas == "0":
+                break
             else:
-                break
 
-        isimamo_produkto_kiekis = float(input("Įveskite kiek produkto išimsite: "))
-        galutinis_kiekis = (
-            float(produktai[tipas][isimamas_produktas]) - isimamo_produkto_kiekis
-        )
-        produktai[tipas][isimamas_produktas] = galutinis_kiekis
+                isimamas_kiekis = float(input("Isimamas kiekis: "))
+                esamas_kiekis = produktai[isimamas_produktas]
+                esamas_kiekis -=  isimamas_kiekis
+                produktai[isimamas_produktas] = esamas_kiekis
 
-        if galutinis_kiekis == 0:
-            del produktai[tipas][isimamas_produktas]
+                if esamas_kiekis <= 0:
+                    del produktai[isimamas_produktas]
 
-        perziureti_saldytuva()
 
-        while True:
-            pasirinkimas_3 = input("Įveskite 0 grįžti į MENIU \n\u2794 ")
-            if pasirinkimas_3 == "0":
-                break
 
+
+       
     if pasirinkimas == "3":  # trecias pasirinkimas
         perziureti_saldytuva()
         os.system("cls")
