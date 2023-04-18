@@ -9,7 +9,7 @@ def produkto_tipas():
     print('1: Skystas produktas')
     print('2: Kietas produktas')
     print('3: Paruoštas produktas')
-    produktas = input('')
+    produktas = input('Ivesti')
 
 while True:
     os.system("cls")
