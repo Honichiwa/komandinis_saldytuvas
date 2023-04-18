@@ -2,16 +2,18 @@ import os
 
 os.system("cls")
 
+produktai = {}
+
 
 while True:
     os.system("cls")
 
-    print("-------[ Programa ]-------")
-    print("1: Prideti uzduoti")
-    print("2: Patikrinti visas uzduotis")
-    print("3: Istrinti uzduoti")
-    print("4: History")
-    print("0: išeiti")
+    print("-------[ Šaldytuvas ]-------")
+    print("1: Įdėti produktus")
+    print("2: Išimti produktus")
+    print("3: Peržiūrėti produktų sąrašą")
+    print("4: Suskaičiuoti")
+    print("0: Išeiti")
 
     pasirinkimas = input("Pasirinkite: ")
 
