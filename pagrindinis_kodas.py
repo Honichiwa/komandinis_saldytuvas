@@ -2,14 +2,25 @@ import os
 
 os.system("cls")
 
-produktai = {}
+produktai = {"agurkas": 1, "pomidoras": 2}
+
 
 def produkto_tipas():
-    print('-------[ Produkto tipas ]-------')
-    print('1: Skystas produktas')
-    print('2: Kietas produktas')
-    print('3: Paruoštas produktas')
-    produktas = input('Ivesti')
+    print("-------[ Produkto tipas ]-------")
+    print("1: Skystas produktas")
+    print("2: Kietas produktas")
+    print("3: Paruoštas produktas")
+    produktas = input("Ivesti")
+
+
+def perziureti_sarasa():
+    if list(produktai.keys()) != []:
+        for indeksas, reiksme in enumerate(produktai):
+            indeksas += 1
+            print(indeksas, ".", reiksme, produktai[reiksme])
+        else:
+            print("nera sukurtu uzduociu")
+
 
 while True:
     os.system("cls")
@@ -39,7 +50,7 @@ while True:
 
     if pasirinkimas == "1":  # pirmas pasirinkimas
         os.system("cls")
-        
+
         while True:
             pasirinkimas_3 = input("ivevskite 0 gryzti i menu \n\u2794 ")
             if pasirinkimas_3 == "0":
