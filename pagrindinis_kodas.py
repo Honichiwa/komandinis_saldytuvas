@@ -14,15 +14,15 @@ def produkto_tipas():
     if pasirinkimas == 1:
         produktas = input('Įveskite produktą: ')
         kiekis = int(input('Įveskite produkto kiekį litrais: '))
-        produktai['Skystas'][produktas]= kiekis
+        produktai['Skystas'][produktas] = kiekis
     elif pasirinkimas == 2:
         produktas = input('Įveskite produktą: ')
         kiekis = input('Įveskite produkto kiekį kilogramais: ')
-        produktai['Kietas'][produktas]= kiekis
+        produktai['Kietas'][produktas] = kiekis
     else:
         produktas = int(input('Įveskite produktą: '))
         kiekis = int(input('Įveskite produkto kiekį vienetais: '))
-        produktai['Kietas'][produktas]= kiekis
+        produktai['Kietas'][produktas] = kiekis
 
     print('-------[ Produkto tipas ]-------')
     print('1: Skystas produktas')
@@ -82,6 +82,7 @@ while True:
     if pasirinkimas == "1":  # pirmas pasirinkimas
         os.system("cls")
         produkto_tipas()
+        
         while True:
             pasirinkimas_3 = input(" 0 grįžti į MENIU \n\u2794 ")
             if pasirinkimas_3 == "0":
@@ -104,8 +105,9 @@ while True:
         isimamo_produkto_kiekis = float(input('Įveskite kiek produkto išimsite: '))
         galutinis_kiekis = float(produktai[tipas][isimamas_produktas]) - isimamo_produkto_kiekis
         produktai[tipas][isimamas_produktas] = galutinis_kiekis
+        
         if galutinis_kiekis == 0:
-            pass
+            del produktai[tipas][isimamas_produktas]
         perziureti_saldytuva()
 
         while True:
