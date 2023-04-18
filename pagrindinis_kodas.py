@@ -42,6 +42,36 @@ def saldytuvo_sudetis():
     visi_produktai = list(produktai["Skystas"].values)
     return visi_produktai
 
+    print("-------[ Produkto tipas ]-------")
+    print("1: Skystas produktas")
+    print("2: Kietas produktas")
+    print("3: Paruoštas")
+    pasirinkimas = int(input("Įveskite pasirinkimą:"))
+
+    if pasirinkimas == 1:
+        produktas = input("Įveskite produktą: ")
+        kiekis = int(input("Įveskite produkto kiekį litrais: "))
+        produktai["Skystas"][produktas] = kiekis
+    elif pasirinkimas == 2:
+        produktas = input("Įveskite produktą: ")
+        kiekis = input("Įveskite produkto kiekį kilogramais: ")
+        produktai["Kietas"][produktas] = kiekis
+    else:
+        produktas = int(input("Įveskite produktą: "))
+        kiekis = int(input("Įveskite produkto kiekį vienetais: "))
+        produktai["Kietas"][produktas] = kiekis
+
+
+def perziureti_saldytuva():
+    os.system("cls")
+
+    if list(produktai.keys()) != []:
+        for indeksas, reiksme in enumerate(produktai):
+            indeksas += 1
+            print(indeksas, ".", reiksme, produktai[reiksme])
+    else:
+        print("nera sukurtu uzduociu")
+
 
 while True:
     os.system("cls")
@@ -73,19 +103,19 @@ while True:
         os.system("cls")
         produkto_tipas()
         while True:
-            pasirinkimas_3 = input("ivevskite 0 gryzti i menu \n\u2794 ")
+            pasirinkimas_3 = input(" 0 grįžti į MENIU \n\u2794 ")
             if pasirinkimas_3 == "0":
                 break
 
     if pasirinkimas == "2":  # antras pasirinkimas
         os.system("cls")
-        perziureti_saldytuva()
         while True:
-            pasirinkimas_3 = input("ivevskite 0 gryzti i menu \n\u2794 ")
+            pasirinkimas_3 = input("Įveskite 0 grįžti į MENIU \n\u2794 ")
             if pasirinkimas_3 == "0":
                 break
 
     if pasirinkimas == "3":  # trecias pasirinkimas
+        perziureti_saldytuva()
         os.system("cls")
         while True:
             pasirinkimas_3 = input("ivevskite 0 gryzti i menu \n\u2794 ")
