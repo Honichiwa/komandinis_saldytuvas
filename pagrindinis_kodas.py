@@ -2,16 +2,18 @@ import os
 
 os.system("cls")
 
-produktai = {'Skystas': {}, 'Kietas': {}, 'Paruoštas': {}}
+produktai = {"Skystas": {}, "Kietas": {}, "Paruoštas": {}}
+
 
 def produkto_tipas():
-    print('-------[ Produkto tipas ]-------')
-    print('1: Skystas produktas')
-    print('2: Kietas produktas')
-    print('3: Paruoštas')
-    pasirinkimas = int(input('Įveskite pasirinkimą:'))
+    print("-------[ Produkto tipas ]-------")
+    print("1: Skystas produktas")
+    print("2: Kietas produktas")
+    print("3: Paruoštas")
+    pasirinkimas = int(input("Įveskite pasirinkimą:"))
 
     if pasirinkimas == 1:
+
         produktas = input('Įveskite produktą: ')
         kiekis = int(input('Įveskite produkto kiekį litrais: '))
         produktai['Skystas'][produktas] = kiekis
@@ -23,26 +25,20 @@ def produkto_tipas():
         produktas = int(input('Įveskite produktą: '))
         kiekis = int(input('Įveskite produkto kiekį vienetais: '))
         produktai['Kietas'][produktas] = kiekis
-
-    print('-------[ Produkto tipas ]-------')
-    print('1: Skystas produktas')
-    print('2: Kietas produktas')
-    print('3: Paruoštas')
-    pasirinkimas = int(input('Įveskite pasirinkimą:'))
-
-    if pasirinkimas == 1:
-        produktas = input('Įveskite produktą: ')
-        kiekis = int(input('Įveskite produkto kiekį litrais: '))
-        produktai['Skystas'][produktas] = kiekis
+        produktas = input("Įveskite produktą: ")
+        kiekis = int(input("Įveskite produkto kiekį litrais: "))
+        produktai["Skystas"][produktas] = kiekis
+        print(produktai)
     elif pasirinkimas == 2:
-        produktas = input('Įveskite produktą: ')
-        kiekis = input('Įveskite produkto kiekį kilogramais: ')
-        produktai['Kietas'][produktas] = kiekis
+        produktas = input("Įveskite produktą: ")
+        kiekis = input("Įveskite produkto kiekį kilogramais: ")
+        produktai["Kietas"][produktas] = kiekis
     else:
-        produktas = int(input('Įveskite produktą: '))
-        kiekis = int(input('Įveskite produkto kiekį vienetais: '))
-        produktai['Kietas'][produktas] = kiekis
-    
+        produktas = str(input("Įveskite produktą: "))
+        kiekis = int(input("Įveskite produkto kiekį vienetais: "))
+        produktai["Kietas"][produktas] = kiekis
+
+
 def perziureti_saldytuva():
     os.system("cls")
 
@@ -52,6 +48,12 @@ def perziureti_saldytuva():
             print(indeksas, ".", reiksme, produktai[reiksme])
     else:
         print("nera sukurtu uzduociu")
+
+
+def saldytuvo_sudetis():
+    visi_produktai = list(produktai["Skystas"].values)
+    return visi_produktai
+
 
 while True:
     os.system("cls")
@@ -90,6 +92,7 @@ while True:
 
     if pasirinkimas == "2":  # antras pasirinkimas
         os.system("cls")
+
 
         print('-------[ Produkto išimimas iš šaldytuvo ]-------')
         perziureti_saldytuva()
