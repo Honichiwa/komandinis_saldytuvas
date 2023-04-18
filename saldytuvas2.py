@@ -4,15 +4,6 @@ os.system("cls")
 
 produktai = {}
 
-
-def produkto_tipai():
-    print("-------[ Produkto tipas ]-------")
-    print("1: Skystas produktas")
-    print("2: Kietas produktas")
-    print("3: Paruoštas")
-    pasirinkimas = int(input("Įveskite pasirinkimą:"))
-
-
 def perziureti_saldytuva():
     os.system("cls")
 
@@ -22,12 +13,6 @@ def perziureti_saldytuva():
             print(indeksas, ".", reiksme, produktai[reiksme])
     else:
         print("Saldytuvas tuscias")
-
-
-def saldytuvo_sudetis():
-    produktai
-    return
-
 
 while True:
     os.system("cls")
@@ -44,68 +29,61 @@ while True:
         while True:
             os.system("cls")
             print(
-                "!!Neteisingas pasirinkimas, spauskite ENTER ir bandykite dar karta!!"
+                "!!Neteisingas pasirinkimas, spauskite ENTER ir bandykite dar kartą!!"
             )
             back = input("")
             break
 
     if pasirinkimas == "0":
         os.system("cls")
-        print("-------[ bye bye ]-------")
+        print("-------[ Viso gero ]-------")
         break
 
     if pasirinkimas == "1":  # pirmas pasirinkimas
         os.system("cls")
+        print("-------[ Produkto įdėjimas į šaldytuvą ]-------")
         perziureti_saldytuva()
-        produktas = input("\nIveskite produkta: ")  # ivedame produkto pavadinima
+        produktas = input("\nĮveskite produktą: ")  # ivedame produkto pavadinima
         produkto_kiekis = float(
-            input("\nIveskite produkto kieki: ")
+            input("\nĮveskite produkto svorį: ")
         )  # ivedame produkto kieki
         produktai[
             produktas
         ] = produkto_kiekis  # kiekvienas ivestas produktas sukuria zodyno nauja keys ir produkto kiekis sukuria to keys values
 
         while True:
-            pasirinkimas_3 = input(" 0 grįžti į MENIU \n\u2794 ")
+            pasirinkimas_3 = input(" Įveskite 0 grįžti į MENIU \n\u2794 ")
             if pasirinkimas_3 == "0":
                 break
 
     if pasirinkimas == "2":  # antras pasirinkimas
         os.system("cls")
         perziureti_saldytuva()
+        print("-------[ Produkto išimimas iš šaldytuvo ]-------")
+
         while True:
-       
-
-
-            print("-------[ Produkto išimimas iš šaldytuvo ]-------")
-            isimamas_produktas = input("Irasykite isimama produkta arba 0 grysti i MENIU: ")
+            isimamas_produktas = input(" Įveskite 0 grįžti į MENIU \n\u2794 ")
             if isimamas_produktas == "0":
                 break
             else:
-
                 isimamas_kiekis = float(input("Isimamas kiekis: "))
                 esamas_kiekis = produktai[isimamas_produktas]
-                esamas_kiekis -=  isimamas_kiekis
+                esamas_kiekis -= isimamas_kiekis
                 produktai[isimamas_produktas] = esamas_kiekis
-
                 if esamas_kiekis <= 0:
                     del produktai[isimamas_produktas]
 
-
-
-
-       
     if pasirinkimas == "3":  # trecias pasirinkimas
+        os.system("cls")
         perziureti_saldytuva()
-        os.system("cls")
-        while True:
-            pasirinkimas_3 = input("ivevskite 0 gryzti i menu \n\u2794 ")
-            if pasirinkimas_3 == "0":
-                break
+        print("-------[ Produktų svorio skaičiavimas ]-------")
 
-    if pasirinkimas == "4":  # ketvirtasa pasirinkimas
-        os.system("cls")
+        bendras_kiekis = 0
+        for produktas in produktai.values():
+            bendras_kiekis += produktas
+        print(f'Visų produktų svoris: {bendras_kiekis}')
+
         while True:
-            pasirinkimas_4 = input("ivevskite 0 gryzti i menu \n\u2794 ")
-            if pasirinkimas_4 == "0":
+            pasirinkimas_3 = input("Įveskite 0 grįžti į MENIU \n\u2794")
+            if pasirinkimas_3 == "0":
                 break
