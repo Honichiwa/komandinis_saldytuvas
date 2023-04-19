@@ -5,7 +5,12 @@ os.system("cls")
 produktai = {}
 shopping_list = {}
 receptas = {}
-
+ 
+def clear():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def saldytuvo_papildymas():
     produktas = input("\nĮveskite produktą: ")  # ivedame produkto pavadinima
@@ -16,7 +21,7 @@ def saldytuvo_papildymas():
 
 
 def perziureti_saldytuva():
-    os.system("cls")
+    clear()
 
     if list(produktai.keys()) != []:
         for indeksas, reiksme in enumerate(produktai):
@@ -27,7 +32,7 @@ def perziureti_saldytuva():
 
 
 def perziureti_recepta():
-    os.system("cls")
+    clear()
 
     if list(receptas.keys()) != []:
         for indeksas, reiksme in enumerate(receptas):
@@ -38,7 +43,7 @@ def perziureti_recepta():
 
 
 def perziureti_shopping_list():
-    os.system("cls")
+    clear()
 
     if list(shopping_list.keys()) != []:
         for indeksas, reiksme in enumerate(shopping_list):
@@ -49,7 +54,7 @@ def perziureti_shopping_list():
 
 
 while True:
-    os.system("cls")
+    clear()
 
     print("-------[ Šaldytuvas ]-------")
     print("1: Įdėti produktus")
@@ -62,7 +67,7 @@ while True:
 
     if pasirinkimas > str(5) or pasirinkimas < str(0):  # neteisingas pasirinkimas
         while True:
-            os.system("cls")
+            clear()
             print(
                 "!!Neteisingas pasirinkimas, spauskite ENTER ir bandykite dar kartą!!"
             )
@@ -70,12 +75,12 @@ while True:
             break
 
     if pasirinkimas == "0":
-        os.system("cls")
+        clear()
         print("-------[ Viso gero ]-------")
         break
 
     if pasirinkimas == "1":  # pirmas pasirinkimas
-        os.system("cls")
+        clear()
         print("-------[ Produkto įdėjimas į šaldytuvą ]-------")
         perziureti_saldytuva()
         produktas, produkto_kiekis = saldytuvo_papildymas()
@@ -87,7 +92,7 @@ while True:
                 break
 
     if pasirinkimas == "2":  # antras pasirinkimas
-        os.system("cls")
+        clear()
         perziureti_saldytuva()
         print("-------[ Produkto išimimas iš šaldytuvo ]-------")
 
@@ -106,7 +111,7 @@ while True:
                     del produktai[isimamas_produktas]
 
     if pasirinkimas == "3":  # trecias pasirinkimasą
-        os.system("cls")
+        clear()
         perziureti_saldytuva()
         print("-------[ Produktų svorio skaičiavimas ]-------")
 
@@ -121,7 +126,7 @@ while True:
                 break
 
     if pasirinkimas == "4":  # ketvirtas pasirinkimas
-        os.system("cls")
+        clear()
         perziureti_saldytuva()
         print("-------[ Produktu patikra receptui ]-------")
 
@@ -165,3 +170,8 @@ while True:
         if min(porcijos_perteklius) > 1:
             perteklius = min(porcijos_perteklius)
             print(f"Įmanoma pagaminti dar tiek porcijų: {perteklius}")
+        
+        while True:
+            pasirinkimas_3 = input("Įveskite 0 grįžti į MENIU \n\u2794")
+            if pasirinkimas_3 == "0":
+                break
