@@ -1,11 +1,14 @@
 import os
+import json
 
 os.system("cls")
 
-produktai = {}
+with open("saldytuvo_turinys.json", "r", encoding="utf-8") as data:
+    produktai = json.load(data)
+
 shopping_list = {}
 receptas = {}
- 
+
 def clear():
     if os.name == 'nt':
         os.system('cls')
@@ -14,11 +17,11 @@ def clear():
 
 def saldytuvo_papildymas():
     produktas = input("\nĮveskite produktą: ")  # ivedame produkto pavadinima
-    produkto_kiekis = float(
-        input("\nĮveskite produkto svorį: ")
-    )  # ivedame produkto kieki
+    produkto_kiekis = float(input("\nĮveskite produkto svorį: "))  # ivedame produkto kieki
+    if produktas in produktai:
+        kiekis = produktai[produktas]
+        produkto_kiekis += kiekis
     return produktas, produkto_kiekis
-
 
 def perziureti_saldytuva():
     clear()
@@ -28,8 +31,7 @@ def perziureti_saldytuva():
             indeksas += 1
             print(indeksas, ".", reiksme, produktai[reiksme])
     else:
-        print("Saldytuvas tuscias")
-
+        print("Saldytuvas tuščias")
 
 def perziureti_recepta():
     clear()
@@ -39,8 +41,7 @@ def perziureti_recepta():
             indeksas += 1
             print(indeksas, ".", reiksme, receptas[reiksme])
     else:
-        print("Receptas tuscias")
-
+        print("Receptas tuščias")
 
 def perziureti_shopping_list():
     clear()
@@ -50,8 +51,7 @@ def perziureti_shopping_list():
             indeksas += 1
             print(indeksas, ".", reiksme, shopping_list[reiksme])
     else:
-        print("Saldytuvas tuscias")
-
+        print("Shoping list'as tuščias")
 
 while True:
     clear()
@@ -60,14 +60,14 @@ while True:
     print("1: Įdėti produktus")
     print("2: Išimti produktus")
     print("3: Suskaičiuoti")
-    print("4: Produktu patikra receptui")
+    print("4: Produktų patikra receptui")
     print("0: Išeiti")
 
     pasirinkimas = input("Pasirinkite: ")
 
     if pasirinkimas > str(5) or pasirinkimas < str(0):  # neteisingas pasirinkimas
         while True:
-            clear()
+            os.system("cls")
             print(
                 "!!Neteisingas pasirinkimas, spauskite ENTER ir bandykite dar kartą!!"
             )
@@ -77,6 +77,8 @@ while True:
     if pasirinkimas == "0":
         clear()
         print("-------[ Viso gero ]-------")
+        with open('saldytuvo_turinys.json', 'w', encoding='utf-8') as file:
+            json.dump(produktai, file)
         break
 
     if pasirinkimas == "1":  # pirmas pasirinkimas
@@ -97,9 +99,7 @@ while True:
         print("-------[ Produkto išimimas iš šaldytuvo ]-------")
 
         while True:
-            isimamas_produktas = input(
-                "Įveskite 0 grįžti į MENIU \n\u2794 arba parašykite produktą, kurį norite išimti: "
-            )
+            isimamas_produktas = input("Įveskite 0 grįžti į MENIU \n\u2794 arba parašykite produktą, kurį norite išimti: ")
             if isimamas_produktas == "0":
                 break
             else:
@@ -112,8 +112,8 @@ while True:
 
     if pasirinkimas == "3":  # trecias pasirinkimasą
         clear()
-        perziureti_saldytuva()
         print("-------[ Produktų svorio skaičiavimas ]-------")
+        perziureti_saldytuva()
 
         bendras_kiekis = 0
         for produktas in produktai.values():
@@ -127,23 +127,21 @@ while True:
 
     if pasirinkimas == "4":  # ketvirtas pasirinkimas
         clear()
-        perziureti_saldytuva()
         print("-------[ Produktu patikra receptui ]-------")
-
+        perziureti_saldytuva()
+        
         while True:
-            recepto_produktas = input("Įveskite recepto produktą: ")
-            recepto_kiekis = int(input("Įveskite produkto kiekį: "))
+            recepto_produktas = input('Įveskite recepto produktą: ')
+            recepto_kiekis = int(input('Įveskite produkto kiekį: '))
             receptas[recepto_produktas] = recepto_kiekis
-
-            tolimesnis_parinkimas = int(
-                input("Jei norite toliau pildyti receptą(1), tęsti(0): ")
-            )
+            
+            tolimesnis_parinkimas = int(input('Jei norite toliau pildyti receptą(1), tęsti(0): '))
             if tolimesnis_parinkimas == 1:
                 continue
             if tolimesnis_parinkimas == 0:
                 break
-
-        porcijos = int(input("Įveskite porcijų kiekį: "))
+        
+        porcijos = int(input('Įveskite porcijų kiekį: '))
         perziureti_recepta()
 
         for produktas_1 in receptas:
@@ -157,10 +155,10 @@ while True:
             else:
                 trukumas = produktai[produktas_1] - kiekis_1
                 shopping_list[produktas_1] = trukumas
-
-        print("Receptui pagaminti reikės vienai porcijai: ")
+        
+        print('Receptui pagaminti reikės vienai porcijai: ')
         perziureti_shopping_list()
-
+        
         perziureti_saldytuva()
         porcijos_perteklius = []
         for produktas in receptas:
@@ -169,7 +167,7 @@ while True:
                 porcijos_perteklius.append(kartojasi)
         if min(porcijos_perteklius) > 1:
             perteklius = min(porcijos_perteklius)
-            print(f"Įmanoma pagaminti dar tiek porcijų: {perteklius}")
+            print(f'Įmanoma pagaminti dar tiek porcijų: {perteklius}')
         
         while True:
             pasirinkimas_3 = input("Įveskite 0 grįžti į MENIU \n\u2794")
