@@ -79,7 +79,7 @@ while True:
     try:
         pasirinkimas = input("Pasirinkite: ")
     except ValueError: 
-        if pasirinkimas > str(5) or pasirinkimas < str(0):
+        if pasirinkimas > 5 or pasirinkimas < 0:
             print("!!Neteisingas pasirinkimas, spauskite ENTER ir bandykite dar kartą!!")
     if pasirinkimas == "0":
         clear()
@@ -187,3 +187,4 @@ while True:
             pasirinkimas_3 = input("Įveskite 0 grįžti į MENIU \n\u2794")
             if pasirinkimas_3 == "0":
                 break
+        
