@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 
 os.system("cls")
 
@@ -9,6 +10,11 @@ with open("saldytuvo_turinys.json", "r", encoding="utf-8") as data:
 shopping_list = {}
 receptas = {}
 
+logeris = logging.basicConfig(filename='logeris.log', encoding='UTF-8', level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(message)s')
+logging.info('Programos atidarymas')
+
+
+
 def clear():
     if os.name == 'nt':
         os.system('cls')
@@ -16,11 +22,18 @@ def clear():
         os.system('clear')
 
 def saldytuvo_papildymas():
+    
     produktas = input("\nĮveskite produktą: ")  # ivedame produkto pavadinima
-    produkto_kiekis = float(input("\nĮveskite produkto svorį: "))  # ivedame produkto kieki
+    try:
+        produkto_kiekis = float(input("\nĮveskite produkto svorį: "))  # ivedame produkto kieki
+    except ValueError:
+        print('Įveskite skaičiumi')
+        logging.debug('Bloga įvestis')
+        produkto_kiekis = float(input("\nĮveskite produkto svorį: "))  # ivedame produkto kiek
     if produktas in produktai:
         kiekis = produktai[produktas]
         produkto_kiekis += kiekis
+    logging.info(f"Įdėtas produktas: {produktas}, kiekis: {produkto_kiekis}")
     return produktas, produkto_kiekis
 
 def perziureti_saldytuva():
@@ -63,22 +76,17 @@ while True:
     print("4: Produktų patikra receptui")
     print("0: Išeiti")
 
-    pasirinkimas = input("Pasirinkite: ")
-
-    if pasirinkimas > str(5) or pasirinkimas < str(0):  # neteisingas pasirinkimas
-        while True:
-            os.system("cls")
-            print(
-                "!!Neteisingas pasirinkimas, spauskite ENTER ir bandykite dar kartą!!"
-            )
-            back = input("")
-            break
-
+    try:
+        pasirinkimas = input("Pasirinkite: ")
+    except ValueError: 
+        if pasirinkimas > 5 or pasirinkimas < 0:
+            print("!!Neteisingas pasirinkimas, spauskite ENTER ir bandykite dar kartą!!")
     if pasirinkimas == "0":
         clear()
         print("-------[ Viso gero ]-------")
         with open('saldytuvo_turinys.json', 'w', encoding='utf-8') as file:
             json.dump(produktai, file)
+            logging.info('Išėjimas iš programos')
         break
 
     if pasirinkimas == "1":  # pirmas pasirinkimas
@@ -103,12 +111,18 @@ while True:
             if isimamas_produktas == "0":
                 break
             else:
-                isimamas_kiekis = float(input("Isimamas kiekis: "))
+                try:
+                    isimamas_kiekis = float(input("Isimamas kiekis: "))
+                except ValueError:
+                    print('Įveskite skaičiumi')
+                    logging.debug('Bloga įvestis')
+                    isimamas_kiekis = float(input("Isimamas kiekis: "))
                 esamas_kiekis = produktai[isimamas_produktas]
                 esamas_kiekis -= isimamas_kiekis
                 produktai[isimamas_produktas] = esamas_kiekis
                 if esamas_kiekis <= 0:
                     del produktai[isimamas_produktas]
+                logging.info(f"Išimtas produktas: {isimamas_produktas}, kiekis: {isimamas_kiekis}")
 
     if pasirinkimas == "3":  # trecias pasirinkimasą
         clear()
@@ -173,3 +187,4 @@ while True:
             pasirinkimas_3 = input("Įveskite 0 grįžti į MENIU \n\u2794")
             if pasirinkimas_3 == "0":
                 break
+        
